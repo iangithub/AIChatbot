@@ -47,19 +47,21 @@ namespace Bot_Application4.Dialogs
             switch (luisresdata.topScoringIntent.intent)
             {
                 case "匯率":
-                    var entity = luisresdata.entities[0];
-
-                    if (entity.type == "幣別")
+                     if (luisresdata.entities.Length>0)
                     {
-                        var currency = (string)entity.resolution.values[0];
-                        switch (currency)
+                        var entity = luisresdata.entities[0];
+                        if (entity.type == "幣別")
                         {
-                            case "日元":
-                                answer = @"日圓匯率參考如下：即期買入0.26360，賣出0.26730 / 現鈔買入 0.26060，賣出 0.26780，以上匯率僅供參考, 請以實際承作匯率為主。 ";
-                                break;
-                            case "美元":
-                                answer = @"美金匯率參考如下：即期買入30.05800，賣出30.16500 / 現鈔買入 29.90800，賣出 30.31500，以上匯率僅供參考, 請以實際承作匯率為主。 ";
-                                break;
+                            var currency = (string)entity.entity;
+                            switch (currency)
+                            {
+                                case "日元":
+                                    answer = @"日圓匯率參考如下：即期買入0.26360，賣出0.26730 / 現鈔買入 0.26060，賣出 0.26780，以上匯率僅供參考, 請以實際承作匯率為主。 ";
+                                    break;
+                                case "美元":
+                                    answer = @"美金匯率參考如下：即期買入30.05800，賣出30.16500 / 現鈔買入 29.90800，賣出 30.31500，以上匯率僅供參考, 請以實際承作匯率為主。 ";
+                                    break;
+                            }
                         }
                     }
                     break;
